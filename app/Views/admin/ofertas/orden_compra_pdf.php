@@ -108,6 +108,9 @@
                 <?php if (! empty($proveedor['telefono'])): ?>
                     <p>Tel: <?= esc($proveedor['telefono']) ?></p>
                 <?php endif; ?>
+                <?php if (! empty($proveedor['telefono'])): ?>
+                    <p>Tel: <?= esc($proveedor['telefono']) ?></p>
+                <?php endif; ?>
             </td>
             <td>
                 <h3>Datos de la orden</h3>

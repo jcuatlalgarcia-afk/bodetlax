@@ -31,7 +31,6 @@
                 <a href="/proveedor/ofertas/crear">Nueva oferta</a>
             <?php elseif ($rol === 'repartidor'): ?>
                 <a href="/repartidor/dashboard">Dashboard</a>
-                <a href="/repartidor/pedidos">Pedidos por entregar</a>
             <?php elseif ($rol === 'administrador'): ?>
                 <a href="/admin/dashboard">Dashboard</a>
                 <a href="/admin/personal/vendedor/pendientes">Vendedores</a>

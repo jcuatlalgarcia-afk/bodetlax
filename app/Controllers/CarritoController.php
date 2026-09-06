@@ -121,4 +121,26 @@ class CarritoController extends BaseController
 
         return redirect()->to('/carrito');
     }
+    
+    public function resumen()
+{
+    $items = $this->carritoModel->conProductos(session()->get('usuario_id'));
+
+    $data  = [];
+    $total = 0;
+
+    foreach ($items as $item) {
+        $precio   = $item['precio_descuento'] ?? $item['precio'];
+        $subtotal = $precio * $item['cantidad'];
+        $total   += $subtotal;
+
+        $data[] = [
+            'nombre'   => $item['nombre'],
+            'cantidad' => $item['cantidad'],
+            'subtotal' => number_format($subtotal, 2),
+        ];
+    }
+
+    return $this->response->setJSON(['items' => $data, 'total' => number_format($total, 2)]);
+}
 }

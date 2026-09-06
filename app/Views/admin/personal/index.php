@@ -4,11 +4,12 @@
 <p><a href="/admin/dashboard">&larr; Volver al dashboard</a> · <a href="/admin/personal/<?= esc($rol) ?>/pendientes">Ver solicitudes pendientes</a></p>
 
 <table class="espacio-arriba">
-    <tr><th>Nombre</th><th>Correo</th><th>Estado</th><th>Acciones</th></tr>
+    <tr><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr>
     <?php foreach ($personal as $p): ?>
         <tr>
             <td><?= esc($p['nombre_completo']) ?></td>
             <td><?= esc($p['email']) ?></td>
+            <td><?= esc($p['telefono'] ?? '-') ?></td>
             <td><span class="insignia insignia-<?= esc($p['estado_cuenta']) ?>"><?= esc(ucfirst($p['estado_cuenta'])) ?></span></td>
             <td>
                 <?php if ($p['estado_cuenta'] === 'activo'): ?>

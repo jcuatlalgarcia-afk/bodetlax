@@ -1,6 +1,7 @@
 <?= view('plantillas/encabezado', ['titulo' => 'Pedido #' . $pedido['id'] . ' - BodeTlax']) ?>
 
 <p><a href="/repartidor/pedidos">&larr; Volver a la lista</a></p>
+<p><a href="/repartidor/pedidos/<?= $pedido['id'] ?>/comprobante" class="boton boton-acento"> Descargar comprobante para firma</a></p>
 
 <div class="tarjeta">
     <h1>Pedido #<?= $pedido['id'] ?></h1>

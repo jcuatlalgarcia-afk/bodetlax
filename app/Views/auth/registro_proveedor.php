@@ -13,6 +13,9 @@
         <label>Correo electrónico</label>
         <input type="email" name="email" value="<?= old('email') ?>" required>
 
+        <label>Teléfono</label>
+        <input type="tel" name="telefono" value="<?= old('telefono') ?>" placeholder="10 dígitos" required>
+
         <label>Contraseña</label>
         <input type="password" name="password" required>
 

@@ -61,6 +61,7 @@ $routes->group('vendedor', ['filter' => 'auth:vendedor'], function ($routes) {
     $routes->post('pedidos/(:num)/completo', 'Vendedor\PedidoController::marcarCompleto/$1');
 
     $routes->get('clientes', 'Admin\ClienteController::index');
+    $routes->get('productos/reactivar/(:num)', 'Vendedor\ProductoController::reactivar/$1');
 });
 
 // ---------- REPARTIDOR ----------
@@ -69,6 +70,7 @@ $routes->group('repartidor', ['filter' => 'auth:repartidor'], function ($routes)
     $routes->get('pedidos', 'Repartidor\PedidoController::index');
     $routes->get('pedidos/(:num)', 'Repartidor\PedidoController::ver/$1');
     $routes->post('pedidos/(:num)/pagado', 'Repartidor\PedidoController::marcarPagado/$1');
+    $routes->get('pedidos/(:num)/comprobante', 'Repartidor\PedidoController::descargarComprobante/$1');
 });
 
 // ---------- ADMINISTRADOR ----------
@@ -120,6 +122,7 @@ $routes->group('', ['filter' => 'auth:cliente'], function ($routes) {
     $routes->post('carrito/agregar', 'CarritoController::agregar');
     $routes->post('carrito/actualizar/(:num)', 'CarritoController::actualizarCantidad/$1');
     $routes->get('carrito/eliminar/(:num)', 'CarritoController::eliminar/$1');
+    $routes->get('carrito/resumen', 'CarritoController::resumen');
 
     $routes->get('pago', 'PagoController::index');
     $routes->post('pago/procesar', 'PagoController::procesar');

@@ -15,10 +15,10 @@ class PedidoModel extends Model
     protected $allowedFields = [
         'cliente_id', 'subtotal', 'impuesto', 'costo_envio', 'total',
         'estado', 'direccion_envio', 'metodo_pago',
+        'evidencia_entrega', 'entregado_por', 'fecha_entrega',
     ];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-    
 }

@@ -19,9 +19,10 @@
             <td>
                 <a href="/vendedor/productos/editar/<?= $producto['id'] ?>" class="boton boton-secundario" style="padding:5px 10px; font-size:12px;">Editar</a>
                 <?php if ($producto['estado'] === 'activo'): ?>
-                    <a href="/vendedor/productos/eliminar/<?= $producto['id'] ?>" class="boton boton-peligro" style="padding:5px 10px; font-size:12px;" onclick="return confirm('¿Dar de baja este producto?')">Dar de baja</a>
+                            <a href="/vendedor/productos/eliminar/<?= $producto['id'] ?>" class="boton boton-peligro" style="padding:5px 10px; font-size:12px;" onclick="return confirm('¿Dar de baja este producto?')">Dar de baja</a>
                 <?php else: ?>
-                    <a href="/vendedor/productos/eliminar-definitivo/<?= $producto['id'] ?>" class="boton boton-peligro" style="padding:5px 10px; font-size:12px;" onclick="return confirm('¿ELIMINAR PERMANENTEMENTE este producto? Esta acción no se puede deshacer.')">Eliminar definitivo</a>
+                <a href="/vendedor/productos/reactivar/<?= $producto['id'] ?>" class="boton" style="padding:5px 10px; font-size:12px;">Reactivar</a>
+                <a href="/vendedor/productos/eliminar-definitivo/<?= $producto['id'] ?>" class="boton boton-peligro" style="padding:5px 10px; font-size:12px;" onclick="return confirm('¿ELIMINAR PERMANENTEMENTE este producto? Esta acción no se puede deshacer.')">Eliminar definitivo</a>
                 <?php endif; ?>
             </td>
         </tr>

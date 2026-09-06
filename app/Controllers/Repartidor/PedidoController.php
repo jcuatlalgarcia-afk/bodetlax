@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\PedidoModel;
 use App\Models\PedidoItemModel;
 use App\Models\HistorialEstadoPedidoModel;
+use App\Libraries\GeneradorPDF;
 
 class PedidoController extends BaseController
 {
@@ -63,6 +64,7 @@ class PedidoController extends BaseController
         if (! $pedido) {
             return redirect()->to('/repartidor/pedidos')->with('errors', ['pedido' => 'Pedido no encontrado.']);
         }
+        
 
         $archivo = $this->request->getFile('evidencia');
         $nombreArchivo = $archivo->getRandomName();
@@ -84,4 +86,25 @@ class PedidoController extends BaseController
         session()->setFlashdata('success', 'Pedido marcado como pagado y entregado, con evidencia registrada.');
         return redirect()->to('/repartidor/pedidos');
     }
+
+    public function descargarComprobante($id)
+{
+    $db = \Config\Database::connect();
+    $pedido = $db->table('pedidos')
+        ->select('pedidos.*, usuarios.nombre_completo as cliente_nombre')
+        ->join('usuarios', 'usuarios.id = pedidos.cliente_id')
+        ->where('pedidos.id', $id)
+        ->get()->getRowArray();
+
+    if (! $pedido) {
+        return redirect()->to('/repartidor/pedidos')->with('errors', ['pedido' => 'Pedido no encontrado.']);
+    }
+
+    $items = $this->pedidoItemModel->where('pedido_id', $id)->findAll();
+
+    $html = view('repartidor/pedidos/comprobante_pdf', ['pedido' => $pedido, 'items' => $items]);
+
+    $pdf = new GeneradorPDF();
+    $pdf->mostrar($html, 'Comprobante_Entrega_' . $pedido['id'] . '.pdf', true);
+}
 }

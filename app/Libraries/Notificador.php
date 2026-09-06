@@ -11,10 +11,14 @@ class Notificador
         $email->setSubject($asunto);
         $email->setMessage($mensajeHtml);
 
-        return $email->send();
-    }
+        $enviado = $email->send();
 
-    // ---------- NOTIFICACIONES ESPECÍFICAS DEL NEGOCIO ----------
+        if (! $enviado) {
+            log_message('error', 'Error de correo: ' . $email->printDebugger(['headers']));
+        }
+
+        return $enviado;
+    }
 
     public function ofertaRevisada(string $paraEmail, string $nombreProveedor, string $nombreProducto, string $estado): bool
     {

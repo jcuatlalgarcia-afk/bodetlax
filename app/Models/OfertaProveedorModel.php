@@ -13,16 +13,9 @@ class OfertaProveedorModel extends Model
     protected $protectFields    = true;
 
     protected $allowedFields = [
-        'proveedor_id',
-        'categoria_id',
-        'nombre_producto',
-        'descripcion',
-        'unidad_medida',
-        'precio_ofertado',
-        'cantidad_ofertada',
-        'imagen',
-        'estado',
-        'revisado_por',
+        'proveedor_id', 'categoria_id', 'nombre_producto', 'descripcion',
+        'unidad_medida', 'precio_ofertado', 'cantidad_ofertada', 'imagen',
+        'estado', 'revisado_por',
     ];
 
     protected $useTimestamps = true;
@@ -30,14 +23,13 @@ class OfertaProveedorModel extends Model
     protected $updatedField  = 'updated_at';
 
     protected $validationRules = [
-        'categoria_id'       => 'required|integer',
-        'nombre_producto'    => 'required|min_length[3]|max_length[150]',
-        'unidad_medida'      => 'required|max_length[20]',
-        'precio_ofertado'    => 'required|decimal|greater_than[0]',
-        'cantidad_ofertada'  => 'required|integer|greater_than[0]',
+        'categoria_id'      => 'required|integer',
+        'nombre_producto'   => 'required|min_length[3]|max_length[150]',
+        'unidad_medida'     => 'required|max_length[20]',
+        'precio_ofertado'   => 'required|decimal|greater_than[0]',
+        'cantidad_ofertada' => 'required|integer|greater_than[0]',
     ];
 
-    // Ofertas pendientes de revisión (para el admin)
     public function pendientes()
     {
         return $this->select('ofertas_proveedores.*, usuarios.nombre_completo as proveedor_nombre, categorias.nombre as categoria_nombre')
@@ -47,7 +39,6 @@ class OfertaProveedorModel extends Model
             ->orderBy('ofertas_proveedores.created_at', 'ASC');
     }
 
-    // Ofertas aceptadas, listas para que un vendedor las publique como producto
     public function aceptadasSinPublicar()
     {
         return $this->select('ofertas_proveedores.*, usuarios.nombre_completo as proveedor_nombre, categorias.nombre as categoria_nombre')
@@ -55,5 +46,13 @@ class OfertaProveedorModel extends Model
             ->join('categorias', 'categorias.id = ofertas_proveedores.categoria_id')
             ->where('ofertas_proveedores.estado', 'aceptada')
             ->orderBy('ofertas_proveedores.created_at', 'ASC');
+    }
+
+    public function conteoePorEstado(int $proveedorId): array
+    {
+        return $this->select('estado, COUNT(*) as total')
+            ->where('proveedor_id', $proveedorId)
+            ->groupBy('estado')
+            ->findAll();
     }
 }

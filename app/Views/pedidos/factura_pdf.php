@@ -89,6 +89,7 @@
                 <h3>Datos del cliente</h3>
                 <p><?= esc($cliente['nombre_completo']) ?></p>
                 <p><?= esc($cliente['email']) ?></p>
+                <p>Tel: <?= esc($cliente['telefono'] ?? 'No registrado') ?></p>
                 <p><?= esc($pedido['direccion_envio']) ?></p>
             </td>
             <td>

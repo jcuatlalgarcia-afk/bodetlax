@@ -3,7 +3,7 @@
 <div class="tarjeta" style="max-width:460px; margin:0 auto;">
     <h1>Crear cuenta de repartidor</h1>
     <div class="alerta" style="background:#fdf3d0; color:#8a6d00; border:1px solid #f1e2a0;">
-        ⚠️ Esta cuenta requiere aprobación de un administrador antes de poder iniciar sesión.
+         Esta cuenta requiere aprobación de un administrador antes de poder iniciar sesión.
     </div>
 
     <form action="/registro/repartidor" method="post">
@@ -14,6 +14,9 @@
 
         <label>Correo electrónico</label>
         <input type="email" name="email" value="<?= old('email') ?>" required>
+
+        <label>Teléfono</label>
+        <input type="tel" name="telefono" value="<?= old('telefono') ?>" placeholder="10 dígitos" required>
 
         <label>Contraseña</label>
         <input type="password" name="password" required>

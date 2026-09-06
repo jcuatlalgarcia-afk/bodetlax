@@ -58,42 +58,44 @@ class Auth extends BaseController
         return $this->procesarRegistro('repartidor');
     }
 
-    private function procesarRegistro(string $nombreRol)
-    {
-        $reglas = [
-            'nombre_completo'  => 'required|min_length[3]|max_length[150]',
-            'email'            => 'required|valid_email|is_unique[usuarios.email]',
-            'password'         => 'required|min_length[8]',
-            'password_confirm' => 'required|matches[password]',
-        ];
+   private function procesarRegistro(string $nombreRol)
+{
+    $reglas = [
+        'nombre_completo'  => 'required|min_length[3]|max_length[150]',
+        'email'            => 'required|valid_email|is_unique[usuarios.email]',
+        'telefono'         => 'required|min_length[10]|max_length[20]',
+        'password'         => 'required|min_length[8]',
+        'password_confirm' => 'required|matches[password]',
+    ];
 
-        if (! $this->validate($reglas)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
-        $db  = \Config\Database::connect();
-        $rol = $db->table('roles')->where('nombre', $nombreRol)->get()->getRow();
-
-        $requiereAprobacion = in_array($nombreRol, ['vendedor', 'repartidor']);
-        $estadoAprobacion   = $requiereAprobacion ? 'pendiente' : 'aprobado';
-
-        $this->usuarioModel->insert([
-            'rol_id'            => $rol->id,
-            'nombre_completo'   => $this->request->getPost('nombre_completo'),
-            'email'             => $this->request->getPost('email'),
-            'password_hash'     => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
-            'estado_cuenta'     => 'activo',
-            'estado_aprobacion' => $estadoAprobacion,
-        ]);
-
-        if ($requiereAprobacion) {
-            session()->setFlashdata('success', 'Registro exitoso. Tu cuenta será revisada por un administrador antes de que puedas iniciar sesión.');
-        } else {
-            session()->setFlashdata('success', 'Registro exitoso. Ya puedes iniciar sesión.');
-        }
-
-        return redirect()->to('/login');
+    if (! $this->validate($reglas)) {
+        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
     }
+
+    $db  = \Config\Database::connect();
+    $rol = $db->table('roles')->where('nombre', $nombreRol)->get()->getRow();
+
+    $requiereAprobacion = in_array($nombreRol, ['vendedor', 'repartidor']);
+    $estadoAprobacion   = $requiereAprobacion ? 'pendiente' : 'aprobado';
+
+    $this->usuarioModel->insert([
+        'rol_id'            => $rol->id,
+        'nombre_completo'   => $this->request->getPost('nombre_completo'),
+        'email'             => $this->request->getPost('email'),
+        'telefono'          => $this->request->getPost('telefono'),
+        'password_hash'     => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+        'estado_cuenta'     => 'activo',
+        'estado_aprobacion' => $estadoAprobacion,
+    ]);
+
+    if ($requiereAprobacion) {
+        session()->setFlashdata('success', 'Registro exitoso. Tu cuenta será revisada por un administrador antes de que puedas iniciar sesión.');
+    } else {
+        session()->setFlashdata('success', 'Registro exitoso. Ya puedes iniciar sesión.');
+    }
+
+    return redirect()->to('/login');
+}
 
     public function login()
     {

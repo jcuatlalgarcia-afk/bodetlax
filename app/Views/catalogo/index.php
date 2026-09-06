@@ -52,9 +52,9 @@
                 <h3><?= esc($producto['nombre']) ?></h3>
                 <p class="precio">$<?= esc($producto['precio']) ?> <span class="texto-suave">/ <?= esc($producto['unidad_medida']) ?></span></p>
                 <?php if ($producto['stock'] > 0): ?>
-                    <p><span class="insignia insignia-aprobado">Disponible</span></p>
+                    <p class="insignia insignia-aprobado">Stock: <?= esc($producto['stock']) ?></p>
                 <?php else: ?>
-                    <p><span class="insignia insignia-rechazado">Agotado</span></p>
+                    <p class="insignia insignia-rechazado">Stock: <?= esc($producto['stock']) ?></p>
                 <?php endif; ?>
                 <a href="/catalogo/producto/<?= $producto['id'] ?>" class="boton" style="margin-top:auto; text-align:center;">Ver detalle</a>
             </div>

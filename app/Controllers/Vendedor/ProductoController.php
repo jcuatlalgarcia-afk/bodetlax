@@ -188,4 +188,19 @@ class ProductoController extends BaseController
 
         return redirect()->to('/vendedor/productos');
     }
+
+    public function reactivar($id)
+{
+    $producto = $this->productoModel->find($id);
+
+    if (! $producto) {
+        return redirect()->to('/vendedor/productos')->with('errors', ['producto' => 'Producto no encontrado.']);
+    }
+
+    $this->productoModel->update($id, ['estado' => 'activo']);
+
+    session()->setFlashdata('success', 'Producto reactivado en el catálogo.');
+    return redirect()->to('/vendedor/productos');
+}
+
 }

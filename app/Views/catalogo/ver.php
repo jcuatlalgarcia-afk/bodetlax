@@ -26,10 +26,10 @@
         </p>
 
         <?php if ($producto['stock'] > 0): ?>
-            <p><span class="insignia insignia-aprobado">Disponible</span></p>
-        <?php else: ?>
-            <p><span class="insignia insignia-rechazado">Agotado</span></p>
-        <?php endif; ?>
+                    <p class="insignia insignia-aprobado">Stock: <?= esc($producto['stock']) ?></p>
+                <?php else: ?>
+                    <p class="insignia insignia-rechazado">Stock: <?= esc($producto['stock']) ?></p>
+                <?php endif; ?>
 
         <p><?= nl2br(esc($producto['descripcion'])) ?></p>
 
@@ -38,7 +38,7 @@
                 <form action="/carrito/agregar" method="post" class="form-en-linea">
                     <?= csrf_field() ?>
                     <input type="hidden" name="producto_id" value="<?= $producto['id'] ?>">
-                    <input type="number" name="cantidad" value="1" min="1" style="width:80px;">
+                    <input type="number" name="cantidad" value="1" min="1" max="<?= $producto['stock'] ?>" style="width:80px;">
                     <button type="submit">Agregar al carrito</button>
                 </form>
             <?php else: ?>
