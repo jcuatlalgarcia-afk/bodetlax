@@ -27,7 +27,7 @@ class CarritoController extends BaseController
         }
 
         $impuesto    = round($subtotal * 0.16, 2);
-        $costoEnvio  = $subtotal > 0 ? 100.00 : 0;
+        $costoEnvio = $subtotal > 0 ? 1000.00 : 0;
         $total       = $subtotal + $impuesto + $costoEnvio;
 
         return view('carrito/index', [
