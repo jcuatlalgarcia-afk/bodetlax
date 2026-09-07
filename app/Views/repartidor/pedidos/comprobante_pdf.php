@@ -21,6 +21,7 @@ td { padding: 6px; border-bottom: 1px solid #ddd; font-size: 11px; }
 </div>
 
 <p><strong>Cliente:</strong> <?= esc($pedido['cliente_nombre']) ?></p>
+<p><strong>Teléfono:</strong> <?= esc($pedido['cliente_telefono'] ?? 'No registrado') ?></p>
 <p><strong>Dirección de entrega:</strong> <?= esc($pedido['direccion_envio']) ?></p>
 <p><strong>Fecha:</strong> <?= date('d/m/Y H:i') ?></p>
 

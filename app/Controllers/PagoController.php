@@ -80,7 +80,7 @@ class PagoController extends BaseController
             $subtotal += $precio * $item['cantidad'];
         }
         $impuesto   = round($subtotal * 0.16, 2);
-        $costoEnvio = 100.00;
+        $costoEnvio = 1000.00;
         $total      = $subtotal + $impuesto + $costoEnvio;
 
         // 3. Crear pedido

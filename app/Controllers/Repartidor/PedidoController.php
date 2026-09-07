@@ -87,11 +87,11 @@ class PedidoController extends BaseController
         return redirect()->to('/repartidor/pedidos');
     }
 
-    public function descargarComprobante($id)
+   public function descargarComprobante($id)
 {
     $db = \Config\Database::connect();
     $pedido = $db->table('pedidos')
-        ->select('pedidos.*, usuarios.nombre_completo as cliente_nombre')
+        ->select('pedidos.*, usuarios.nombre_completo as cliente_nombre, usuarios.telefono as cliente_telefono')
         ->join('usuarios', 'usuarios.id = pedidos.cliente_id')
         ->where('pedidos.id', $id)
         ->get()->getRowArray();

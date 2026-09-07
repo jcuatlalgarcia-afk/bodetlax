@@ -23,7 +23,7 @@
     <div class="stat-tarjeta alerta">
         <h4>Vendedores pendientes</h4>
         <p class="numero"><?= esc($vendedoresPendientes) ?></p>
-        <a href="/admin/vendedores/pendientes" style="font-size:12px;">Revisar →</a>
+        <a href="/admin/personal/vendedor/pendientes">...</a>
     </div>
     <div class="stat-tarjeta alerta">
         <h4>Ofertas pendientes</h4>
